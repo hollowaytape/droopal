@@ -1,11 +1,15 @@
 from flask import Flask, request
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask import Flask, request
+from flask import Flask, request, jsonify
+
+import os
 
 app = Flask(__name__)
 db = SQLAlchemy(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://droop.db'
+PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
+os.path.join(PROJECT_DIR, 'droop.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///droop.db'
 
 class Tree(db.Model):
     __tablename__ = 'droop_tree'
@@ -22,20 +26,26 @@ class Reading(db.Model):
     date_time = db.Column(db.DateTime)
     value = db.Column(db.Integer)
 
-if __name__ == '__main__':
-  app.run(debug=True)
+@app.route('/trees/', methods=['GET'])
+def trees():
+  if request.method == 'GET':
+    results = Tree.query.limit(10).offset(0).all()
 
-"""api.add_resource(TreeAPI, '/', endpoint = 'tree')
+    json_results = []
+    for result in results:
+      d = {'id': result.id,
+           'threshold': result.threshold,
+           'ripeness': result.ripeness,
+           'latitude': result.latitude,
+           'longitude': result.longitude}
+      json_results.append(d)
 
-@app.route('/trees/')
-def trees_index():
-    # return render_template('tree_index.html')
-    return jsonify
+    return jsonify(items=json_results)
     
-    
-@app.route('/trees/<id>')
+"""@app.route('/trees/<id>/', methods=['GET'])
 def tree():
-    return render_template('tree.html')
-
+    if request.method == 'GET':
+        results = Tree.query
+    
 if __name__ == '__main__':
-    app.run(debug=True)"""
+  app.run(debug=True)"""
