@@ -10,7 +10,7 @@ class Tree(models.Model):
     
 class Reading(models.Model):
     tree = models.ForeignKey(Tree)
-    hour = models.DateTimeField()
+    date_time = models.DateTimeField()
     value = models.IntegerField()
     
     def __unicode__(self):
