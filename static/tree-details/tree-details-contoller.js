@@ -34,7 +34,7 @@ angular.module('droopal')
 
           var marker = L.marker(new L.LatLng(value.latitude, value.longitude), {
             icon: L.icon({
-              iconUrl: 'static/img/treemarker-red.png',//'img/treemarker.png',
+              iconUrl: details.ripeness ? 'static/img/treemarker.png' : 'static/img/treemarker-red.png',
               iconSize: [32, 37], // size of the icon
               iconAnchor: [16, 16], // point of the icon which will correspond to marker's location
             }),
