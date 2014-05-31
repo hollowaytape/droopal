@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="large-12 columns">
+    <h1>{{treename}}</h1>
+    <h6><a href="#/trees">Back to all trees</a></h6>
+  </div>
+</div>
+
+<div class="dr-band-1">
+  <div class="row">
+
+    <div class="large-6 columns">
+
+      <h3>Location</h3>
+      <leaflet height="400px" center="center"></leaflet>
+
+    </div>
+    <div class="large-6 columns">
+      <h3>Info</h3>
+      <ul class="dr-tree-detail-list">
+        <li><div>Type</div><div>Apple</div></li>
+        <li><div>Last sensor value</div><div>128</div></li>
+        <li><div>Expected ripe date</div><div>{{ prediectedRipeDate | date }}</div></li>
+        <li><div>Apples Harvested Last Season</div><div>{{ lastPickedQty }}</div></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="dr-band-2">
+  <div class="row">
+    <div class="large-12 columns">
+      <h3> Sensor Data </h3>
+      <highchart id="chart1" config="treeChartConfig"></highchart>
+    </div>
+  </div>
+</div>

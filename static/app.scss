@@ -1,0 +1,58 @@
+.dr-topbar {
+  max-width: 100%;
+  background-color: deepskyblue;
+  padding: 10px;
+  height: 100px;
+  display: flex;
+  > div {
+    flex: 1;
+    text-align: center;
+  }
+
+  h1 {
+    color: white;
+  }
+}
+
+.dr-band-1 {
+  background-color: #F2F4F8;
+  padding: 10px;
+  padding-bottom: 20px;
+}
+.dr-band-2 {
+  background-color: #222733;
+  padding: 10px;
+  padding-bottom: 20px;
+
+  * {
+    color: white;
+  }
+}
+
+footer {
+  padding: 30px 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+}
+
+.dr-tree-detail-list {
+  > li {
+
+    &:before, &:after {
+      content: " ";
+      display: table;
+    }
+    &:after {
+      clear: both;
+    }
+
+    > div:nth-child(1) {
+      float: left;
+    }
+    > div:nth-child(2) {
+      float: right;
+    }
+  }
+  list-style-type: none;
+}

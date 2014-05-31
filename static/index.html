@@ -1,0 +1,53 @@
+<!doctype html>
+<html class="no-js" lang="en" ng-app="droopal">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Droopal</title>
+  <link rel="stylesheet" href="css/foundation.css"/>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css">
+  <link rel="stylesheet" href="app.css">
+  <!--<script src="js/vendor/modernizr.js"></script>-->
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+  <script src="http://tombatossals.github.io/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
+
+
+
+  <script src='http://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
+  <link href='http://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
+  <link href='http://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
+
+  <script src="js/vendor/highcharts-all.js"></script>
+  <script src="js/vendor/highcharts-ng.min.js"></script>
+  <script src="app.js"></script>
+  <script src="trees/trees-controller.js"></script>
+  <script src="tree-details/tree-details-contoller.js"></script>
+</head>
+<body>
+
+<div class="dr-topbar">
+    <div><img src="img/droopal-logo.png" style="height: 70px"/></div>
+    <div><img src="img/logo.png"/></div>
+    <div><img src="img/hackforchange-logo.png"/></div>
+</div>
+
+<div ng-view></div>
+
+<footer>
+  <div>©2014 Concrete Jungle</div>
+  <img src="img/logo.png"/>
+</footer>
+
+<!--<script src="js/vendor/jquery.js"></script>-->
+<!--<script src="js/foundation.min.js"></script>-->
+
+
+<!--<script>-->
+<!--$(document).foundation();-->
+<!--</script>-->
+</body>
+</html>

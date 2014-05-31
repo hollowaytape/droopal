@@ -76,7 +76,7 @@ def tree(id):
     
 @app.errorhandler(404)
 def page_not_found_better_show_the_index(e):
-    # return render_template("index.html")
+    return render_template("index.html")
     return "404"
     
 if __name__ == '__main__':

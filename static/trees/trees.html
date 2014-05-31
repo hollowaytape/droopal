@@ -1,0 +1,22 @@
+<div class="dr-band-1">
+  <div class="row">
+    <div class="large-12 columns">
+      <h3> TreeMap </h3>
+      <leaflet height="400px" center="center"></leaflet>
+    </div>
+  </div>
+</div>
+
+<div class="dr-band-2">
+  <div class="row">
+    <div class="large-12 columns">
+      <h3> TreeList </h3>
+      <ul>
+        <li ng-repeat="tree in trees">
+          <div><a href="#/tree-details/{{tree.id}}">{{tree.name}}</a></div>
+          <div>{{tree.ripeStatus}}</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
