@@ -1,11 +1,10 @@
 from django.db import models
 
-class Tree(models.Model):
+class Tree(models.Model): # table name is droop_tree.
     id = models.IntegerField(primary_key=True)
     threshold = models.IntegerField() # 0 - 255
     
     ripeness = models.BooleanField()
-    last_updated = models.DateTimeField()
     
     latitude = models.FloatField()
     longitude = models.FloatField()
@@ -13,7 +12,7 @@ class Tree(models.Model):
     def __unicode__(self):
         return self.id
     
-class Reading(models.Model):
+class Reading(models.Model): # table name is droop_reading.
     tree = models.ForeignKey(Tree)
     date_time = models.DateTimeField()
     value = models.IntegerField()
@@ -21,5 +20,5 @@ class Reading(models.Model):
     def __unicode__(self):
         return "%s-%s-%s" % (self.id, self.hour, self.value)
         
-# Verification?
+# Verification of ripeness?
 # How many readings do we want to store?
