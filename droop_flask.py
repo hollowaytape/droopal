@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 
 import os
 
@@ -25,7 +25,7 @@ class Reading(db.Model):
     tree = db.Column(db.ForeignKey("Tree.id"), nullable=False)
     date_time = db.Column(db.DateTime)
     value = db.Column(db.Integer)
-
+    
 @app.route('/trees/', methods=['GET'])
 def trees():
   if request.method == 'GET':
@@ -43,18 +43,21 @@ def trees():
     return jsonify(items=json_results)
     
 @app.route('/trees/<int:id>/', methods=['GET'])
-def tree():
+def tree(id):
     if request.method == 'GET':
-        results = Tree.query.filter_by(id=id).first()
-        for result in results:
-            d = {'id': result.id,
+        result = Tree.query.filter_by(id=id).first()
+        d = {'id': result.id,
            'threshold': result.threshold,
            'ripeness': result.ripeness,
            'latitude': result.latitude,
            'longitude': result.longitude}
-            json_results = d
+        json_results = d
             
         return jsonify(items=json_results)
+    
+@app.errorhandler(404)
+def page_not_found_better_show_the_index(e):
+    return render_template("index.html")
     
 if __name__ == '__main__':
   app.run(debug=True)
