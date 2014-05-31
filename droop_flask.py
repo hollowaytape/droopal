@@ -42,10 +42,19 @@ def trees():
 
     return jsonify(items=json_results)
     
-"""@app.route('/trees/<id>/', methods=['GET'])
+@app.route('/trees/<int:id>/', methods=['GET'])
 def tree():
     if request.method == 'GET':
-        results = Tree.query
+        results = Tree.query.filter_by(id=id).first()
+        for result in results:
+            d = {'id': result.id,
+           'threshold': result.threshold,
+           'ripeness': result.ripeness,
+           'latitude': result.latitude,
+           'longitude': result.longitude}
+            json_results = d
+            
+        return jsonify(items=json_results)
     
 if __name__ == '__main__':
-  app.run(debug=True)"""
+  app.run(debug=True)
