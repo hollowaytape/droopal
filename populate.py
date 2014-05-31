@@ -22,10 +22,10 @@ with open(data, 'rb') as f:
         value = int(line[6])
         
         tree = (id, threshold, ripeness, lat, long)
-        reading = (id, date_time, value)
+        reading = (i, id, date_time, value)
                     
         sql_a = "INSERT INTO droop_tree (id, threshold, ripeness, latitude, longitude) VALUES (?, ?, ?, ?, ?)"
-        sql_b = "INSERT INTO droop_reading (tree_id, date_time, value) VALUES (?, ?, ?)"
+        sql_b = "INSERT INTO droop_reading (id, tree_id, date_time, value) VALUES (?, ?, ?, ?)"
         
         c.execute(sql_b, reading)
         
