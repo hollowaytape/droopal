@@ -1,6 +1,6 @@
 <div class="row">
   <div class="large-12 columns">
-    <h1>{{details.name}}</h1>
+    <h1>{{details.name}} ({{details.ripeness ? 'Ripe' : 'Not Ripe' }})</h1>
     <h6><a href="#/trees">Back to all trees</a></h6>
   </div>
 </div>
@@ -18,7 +18,7 @@
       <h3>Info</h3>
       <ul class="dr-tree-detail-list">
         <li><div>Type</div><div>{{ details.type }}</div></li>
-        <li><div>Last sensor value</div><div>{{ details.lastValue }}</div></li>
+        <li><div>Last sensor value</div><div>{{ details.lastValue -1 }}</div></li>
         <li><div>Current threshold value</div><div>{{ details.threshold }}</div></li>
         <li><div>Expected ripe date</div><div>{{ details.prediectedRipeDate | date }}</div></li>
         <li><div>Apples Harvested Last Season</div><div>{{ details.lastPickedQty }}</div></li>
