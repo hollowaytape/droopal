@@ -13,6 +13,9 @@ with open(data, 'rb') as f:
     plotlist.next()
     for i, line in enumerate(plotlist):
         id = int(line[0])
+        # Next: Name could be Type/Number/NearestStreet with a reverse geocoding API.
+        name = "Apple %s" % (id)
+        type = "Apple"
         threshold = int(line[1])
         ripeness = int(line[2])
         lat = float(line[3])
@@ -21,10 +24,11 @@ with open(data, 'rb') as f:
         date_time = datetime.datetime.strptime(line[5], "%m/%d/%y").date()
         value = int(line[6])
         
-        tree = (id, threshold, ripeness, lat, long)
+        tree = (id, name, type, threshold, ripeness, lat, long)
         reading = (i, id, date_time, value)
+        
                     
-        sql_a = "INSERT INTO droop_tree (id, threshold, ripeness, latitude, longitude) VALUES (?, ?, ?, ?, ?)"
+        sql_a = "INSERT INTO droop_tree (id, name, type, threshold, ripeness, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?)"
         sql_b = "INSERT INTO droop_reading (id, tree_id, date_time, value) VALUES (?, ?, ?, ?)"
         
         c.execute(sql_b, reading)
