@@ -3,12 +3,12 @@ from django.db import models
 class Tree(models.Model):
     id = models.IntegerField(primary_key=True)
     threshold = models.IntegerField() # 0 - 255
+    
     ripeness = models.BooleanField()
+    last_updated = models.DateTimeField()
     
     latitude = models.FloatField()
     longitude = models.FloatField()
-    
-    last_updated = models.DateTimeField()
     
     def __unicode__(self):
         return self.id
