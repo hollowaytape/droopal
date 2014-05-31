@@ -39,3 +39,15 @@ footer {
     float: left; }
   .dr-tree-detail-list > li > div:nth-child(2) {
     float: right; }
+
+.dr-trees-list {
+  list-style-type: none; }
+  .dr-trees-list > li:before, .dr-trees-list > li:after {
+    content: " ";
+    display: table; }
+  .dr-trees-list > li:after {
+    clear: both; }
+  .dr-trees-list > li > div {
+    float: left; }
+  .dr-trees-list > li > div:last-child {
+    float: right; }

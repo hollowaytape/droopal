@@ -56,3 +56,24 @@ footer {
   }
   list-style-type: none;
 }
+
+.dr-trees-list {
+  > li {
+
+    &:before, &:after {
+      content: " ";
+      display: table;
+    }
+    &:after {
+      clear: both;
+    }
+
+    > div {
+      float: left;
+    }
+    > div:last-child {
+      float: right;
+    }
+  }
+  list-style-type: none;
+}
