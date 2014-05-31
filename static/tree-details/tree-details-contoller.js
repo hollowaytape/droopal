@@ -3,9 +3,8 @@
 /* Controllers */
 
 angular.module('droopal')
-    .controller('TreeDetailsCtrl', ['$scope', '$routeParams', function ($scope, $routeParams) {
+    .controller('TreeDetailsCtrl', ['$scope', '$routeParams', '$http', 'leafletData', function ($scope, $routeParams,$http, leafletData) {
 
-      $scope.treename = 'Tree #91';
 
       $scope.predictedRipeDate = new Date();
 
@@ -23,65 +22,109 @@ angular.module('droopal')
       });
 
 
-      $scope.treeChartConfig = {
-        //This is not a highcharts object. It just looks a little like one!
-        options: {
-          //This is the Main Highcharts chart config. Any Highchart options are valid here.
-          //will be ovverriden by values specified below.
-          chart: {
-            type: 'spline'
-          },
-          tooltip: {
-            style: {
-              padding: 10,
-              fontWeight: 'bold'
-            }
-          }
-        },
+      $http({
+        url: '/trees/'+$routeParams.id
+      }).success(function (data) {
 
-        //The below properties are watched separately for changes.
+        var value = data.items[0];
+        $scope.center.lat = value.latitude;
+        $scope.center.lng = value.longitude;
 
-        //Series object (optional) - a list of series using normal highcharts series options.
-        series: [
-          {
-            name: 'Sensor Value',
-            data: [
-              [1396235138000, 1],
-              [1398913538000, 2],
-              [1401505539000, 3],
-              [1404183938000, 4],
-              [1406775938000, 3]
-            ]
+        leafletData.getMap().then(function (map) {
+
+          var marker = L.marker(new L.LatLng(value.latitude, value.longitude), {
+            icon: L.icon({
+              iconUrl: 'static/img/treemarker-red.png',//'img/treemarker.png',
+              iconSize: [32, 37], // size of the icon
+              iconAnchor: [16, 16], // point of the icon which will correspond to marker's location
+            }),
+            title: value.name
+          });
+          map.addLayer(marker);
+
+        });
+
+        $scope.details = value;
+
+        $scope.details.lastValue = data.items[1].value;
+
+      });
+
+      $http({
+        url: '/trees/'+$routeParams.id+'/log'
+      }).success(function (data) {
+
+        var sData = [];
+        var thresholdVal = 0;
+
+        angular.forEach(data.items, function(value, key){
+          if(!value.date_time) {
+            thresholdVal = value.threshold;
+            return true;
           }
-        ],
-        //Title configuration (optional)
-        title: {
-          text: 'Ripeness'
-        },
-        //Boolean to control showng loading status on chart (optional)
-        loading: false,
-        //Configuration for the xAxis (optional). Currently only one x axis can be dynamically controlled.
-        //properties currentMin and currentMax provied 2-way binding to the chart's maximimum and minimum
-        xAxis: {
-          title: {text: 'values'},
-          type: 'datetime'
-        },
-        yAxis: {
-          plotLines: [
-            {
-              value: 3,
-              color: 'green',
-              dashStyle: 'shortdash',
-              width: 2,
-              label: {
-                text: 'Ripeness Threshold'
+          sData.push([
+              new Date(value.date_time).getTime(),
+              value.value
+          ]);
+        });
+
+        $scope.treeChartConfig = {
+          //This is not a highcharts object. It just looks a little like one!
+          options: {
+            //This is the Main Highcharts chart config. Any Highchart options are valid here.
+            //will be ovverriden by values specified below.
+            chart: {
+              type: 'spline'
+            },
+            tooltip: {
+              style: {
+                padding: 10,
+                fontWeight: 'bold'
               }
             }
-          ]
-        },
-        //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
-        useHighStocks: false
-      };
+          },
+
+          //The below properties are watched separately for changes.
+
+          //Series object (optional) - a list of series using normal highcharts series options.
+          series: [
+            {
+              name: 'Sensor Value',
+              data: sData
+            }
+          ],
+          //Title configuration (optional)
+          title: {
+            text: 'Ripeness'
+          },
+          //Boolean to control showng loading status on chart (optional)
+          loading: false,
+          //Configuration for the xAxis (optional). Currently only one x axis can be dynamically controlled.
+          //properties currentMin and currentMax provied 2-way binding to the chart's maximimum and minimum
+          xAxis: {
+            title: {text: 'values'},
+            type: 'datetime'
+          },
+          yAxis: {
+            plotLines: [
+              {
+                value: thresholdVal,
+                color: 'green',
+                dashStyle: 'shortdash',
+                width: 2,
+                label: {
+                  text: 'Ripeness Threshold'
+                }
+              }
+            ]
+          },
+          //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
+          useHighStocks: false
+        };
+      });
+
+
+
 
 
     }])

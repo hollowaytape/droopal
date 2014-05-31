@@ -11,9 +11,9 @@
   <div class="row">
     <div class="large-12 columns">
       <h3> TreeList </h3>
-      <ul>
+      <ul class="dr-trees-list">
         <li ng-repeat="tree in trees">
-          <div><a href="#/tree-details/{{tree.id}}">{{tree.name}}</a></div>
+          <div><a href="#/tree-details/{{tree.id}}">{{tree.name}}</a> ({{tree.type}})</div>
           <div>{{tree.ripeStatus}}</div>
         </li>
       </ul>

@@ -81,14 +81,6 @@ def log(id):
         readings = Reading.query.filter_by(tree_id=id).limit(100)
         
         json_results = []
-        t = {'id': result.id,
-           'name': result.name,
-           'type': result.type,
-           'threshold': result.threshold,
-           'ripeness': result.ripeness,
-           'latitude': result.latitude,
-           'longitude': result.longitude}
-        json_results.append(t)
         
         for reading in readings:
             r = {'tree_id': reading.id,

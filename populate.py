@@ -2,6 +2,7 @@ import os
 import csv
 import sqlite3
 import datetime
+from pygeocoder import Geocoder
 
 data = "fakedata.csv"
 conn = sqlite3.connect('droop.db')
@@ -13,13 +14,14 @@ with open(data, 'rb') as f:
     plotlist.next()
     for i, line in enumerate(plotlist):
         id = int(line[0])
-        # Next: Name could be Type/Number/NearestStreet with a reverse geocoding API.
-        name = "Apple %s" % (id)
         type = "Apple"
         threshold = int(line[1])
         ripeness = int(line[2])
         lat = float(line[3])
         long = float(line[4])
+        
+        # Ex. "Apple 7 Ponce de Leon"
+        name = "Apple %s %s" % (id, Geocoder.reverse_geocode(lat, long).route)
         
         date_time = datetime.datetime.strptime(line[5], "%m/%d/%y").date()
         value = int(line[6])
